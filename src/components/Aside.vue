@@ -6,7 +6,6 @@
            :collapse-transition="false"
            :collapse="isCollapse"
            router
-           @select="handleSelect"
   >
 
 
@@ -45,11 +44,8 @@ export default {
   props:{
     isCollapse:Boolean,
     logoTextShow:Boolean
-  },methods:{
-    handleSelect() {
+  },
 
-    }
-  }
 }
 </script>
 
