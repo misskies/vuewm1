@@ -6,10 +6,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/manage',
+    path: '/',
     name: 'Manage',
     component:() =>import('../views/Manage.vue'),
-    redirect:"/manage/home",
+    redirect:"/home",
     children:[
       {
         path: 'home',
@@ -38,5 +38,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+router.beforeResolve((to,from,next)=>{
+  localStorage.setItem("currentPathName",to.name)//设置当前路由名称
+  next()
+})
 export default router

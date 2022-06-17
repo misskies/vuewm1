@@ -18,7 +18,7 @@
       </b>
 
     </div>
-    <el-menu-item index="/manage/home">
+    <el-menu-item index="/home">
       <template slot="title">
         <i class="el-icon-house"></i>
         <span slot="title">主页</span>
@@ -30,7 +30,7 @@
         <i class="el-icon-menu"></i>
         <span slot="title">系统管理</span>
       </template>
-        <el-menu-item index="/manage/user">
+        <el-menu-item index="/user">
           <i class="el-icon-s-custom"></i>
           <span slot="title">用户管理</span>
         </el-menu-item>
@@ -47,8 +47,7 @@ export default {
     logoTextShow:Boolean
   },methods:{
     handleSelect() {
-      console.log(this.$route)
-      this.$route.fullPath.split("/")
+
     }
   }
 }
