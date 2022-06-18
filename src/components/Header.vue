@@ -10,9 +10,9 @@
     </el-breadcrumb>
   </div>
 
-  <el-dropdown style="width: 70px;cursor: pointer">
+  <el-dropdown style="width: 150px;cursor: pointer">
     <div style="display: inline-block">
-      <img src="https://img-blog.csdnimg.cn/c6d0ece75d3f4833bd820b8aa2eb952b.png" alt=""
+      <img src="user.avatarUrl" alt=""
             style="width: 30px;border-radius: 50%;position: relative;top: 10px;right: 5px">
       <span>{{user.nickname}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
     </div>
