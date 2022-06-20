@@ -12,7 +12,7 @@
         </el-form-item>
 
         <el-form-item prop="confirmPassword">
-        <el-input placeholder="请确认密码" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
+        <el-input placeholder="请确认密码" size="medium" style="margin: 5px 0" prefix-icon="el-icon-lock" show-password v-model="user.confirmPassword"></el-input>
         </el-form-item>
 
         <el-form-item style="margin: 10px 0;text-align: right">

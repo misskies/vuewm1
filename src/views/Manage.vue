@@ -7,11 +7,11 @@
 
       <el-container>
         <el-header style="border-bottom: 1px solid #ccc">
-          <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse"/>
+          <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :user="user"/>
         </el-header>
 
         <el-main>
-          <router-view />
+          <router-view @refreshUser="getUser"/>
         </el-main>
       </el-container>
     </el-container>
@@ -31,10 +31,12 @@ export default {
       isCollapse:false,
       sideWidth: 200,
       logoTextShow:true,
-
+      user:{}
     }
   },
-
+created() {
+    this.getUser()
+},
   methods:{
       collapse(){
         this.isCollapse=!this.isCollapse
@@ -49,7 +51,13 @@ export default {
           this.logoTextShow=true
 
         }
-      }
+      },
+    getUser(){
+        let username=JSON.parse(localStorage.getItem("user")).username
+        this.request.get("/user/username/"+username).then(res=>{
+          this.user=res.data
+        })
+    }
 
   }
 }

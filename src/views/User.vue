@@ -136,7 +136,7 @@ export default {
           address:this.address
         }
       }).then(res=>{
-        console.log(res)
+        console.log(res.data)
         this.tableData=res.data.records
         this.total=res.data.total
       })
@@ -162,7 +162,7 @@ export default {
     },
     del(id){
       this.request.delete("/user/"+id).then(res => {
-        if(res.data) {
+        if(res.code==='200') {
           this.$message.success("删除成功")
           this.dialogFormVisible=false
           this.load()
@@ -180,7 +180,7 @@ export default {
       let ids=this.multipleSelection.map(v => v.id)
       console.log(ids)
       this.request.post("/user/del/batch",ids).then(res => {
-        if(res.data) {
+        if(res.code==='200') {
           this.$message.success("批量删除成功")
           this.dialogFormVisible=false
           this.load()
@@ -192,7 +192,7 @@ export default {
     },
     save(){
       this.request.post("/user",this.form).then(res=>{
-        if(res.data) {
+        if(res.code==='200') {
           this.$message.success("保存成功")
           this.dialogFormVisible=false
           this.load()
