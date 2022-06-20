@@ -34,24 +34,23 @@ export default {
     collapse:Function,
     user:Object
   },
+  computed:{
+    currentPathName(){
+      return this.$store.state.currentPathName;
+    }
+  },
   watch:{
-    '$route':function(){
-      this.currentPathName=localStorage.getItem("currentPathName")
+    currentPathName(newVal,oldVal){
+      console.log(newVal)
     }
   },
-  data(){
-    return{
-      currentPathName:'',
-    }
-  },
-  created() {
-    this.currentPathName=localStorage.getItem("currentPathName")
-    console.log(this.user)
-  },
+
   methods:{
     logout(){
       this.$router.push("/login")
+
       localStorage.removeItem("user")
+      localStorage.removeItem("menus")
       this.$message.success("退出成功")
     }
   }

@@ -14,7 +14,7 @@
 
 
       <el-form-item style="margin: 10px 0;text-align: right">
-        <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>
+        <el-button type="primary" size="small" autocomplete="off" @click="login()">登录</el-button>
         <el-button type="warning" size="small" autocomplete="off" @click="$router.push('/register')">注册</el-button>
       </el-form-item>
     </el-form>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import {setRoutes} from "@/router";
+
 export default {
   name: "Login",
   data(){
@@ -48,6 +50,9 @@ export default {
           this.request.post("/user/login",this.user).then(res=>{
             if(res.code==='200'){
               localStorage.setItem("user",JSON.stringify(res.data))//存储用户信息
+              localStorage.setItem("menus",JSON.stringify(res.data.menus))//存储用户信息
+
+              setRoutes()
               this.$router.push("/")
               this.$message.success("登录成功")
             }else{
