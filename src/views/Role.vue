@@ -90,17 +90,20 @@
       <el-tree
           :props="props"
           :data="menuData"
+          ref="tree"
           show-checkbox
           node-key="id"
-          :default-checked-keys="[1]"
-          :default-expanded-keys="[4]"
-          @check-change="handleCheckChange"
-      >
+          :default-checked-keys="expends"
+          :default-expanded-keys="checks"
+          >
+          <span class="custom-tree-node" slot-scope="{node,data}">
+            <span><i :class="data.icon"></i> {{data.name}}</span>
+          </span>
 
       </el-tree>
       <div slot="footer" class="dialog-footer">
         <el-button @click="menuDialogVis = false">取 消</el-button>
-        <el-button type="primary" @click="save">确 定</el-button>
+        <el-button type="primary" @click="saveRoleMenu">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -123,7 +126,11 @@ export default {
       menuData: [],
       props:{
         label:'name',
-      }
+      },
+
+      expends:[],
+      checks:[],
+      roleId:0
     }
   },
   created() {
@@ -208,15 +215,31 @@ export default {
       this.load()
     },
     selectMenu(roleId){
+
       this.menuDialogVis=true
+
+      this.roleId=roleId
       this.request.get("/menu").then(res=>{
         this.menuData=res.data
+
+        this.expends=this.menuData.map(v=>v.id)
+      })
+
+      this.request.get("/role/roleMenu/"+roleId).then(res=>{
+        this.checks=res.data
       })
 
     },
-    handleCheckChange(data,checked,indeterminate){
-
-    }
+    saveRoleMenu(){
+      this.request.post("/role/roleMenu/",this.roleId,this.$ref.tree.getCheckedKeys()).then(res=>{
+        if(res.code==='200'){
+          this.$message.success("绑定成功")
+          this.menuDialogVis=false
+        }else{
+          this.$message.error("绑定失败")
+        }
+      })
+    },
   }
 }
 </script>

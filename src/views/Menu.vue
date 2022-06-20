@@ -34,7 +34,10 @@
       </el-table-column>
       <el-table-column prop="path" label="路径" width="120">
       </el-table-column>
-      <el-table-column prop="icon" label="图标" width="120">
+      <el-table-column label="图标" class-name="fontSize18" align="center" label-class-name="fontSize12">
+        <template slot-scope="scope">
+          <i :class="scope.row.icon" ></i>
+        </template>
       </el-table-column>
       <el-table-column prop="description" label="描述" width="120">
       </el-table-column>
@@ -69,7 +72,13 @@
           <el-input v-model="form.path" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="图标" >
-          <el-input v-model="form.icon" autocomplete="off"></el-input>
+
+          <el-select clearable v-model="form.icon" placeholder="请选择" style="width: 100%">
+            <el-option v-for="item in options" :key="item.name" :label="item.name" :value="item.value">
+              <i :class="item.value" />{{item.name}}
+            </el-option>
+          </el-select>
+
         </el-form-item>
         <el-form-item label="描述" >
           <el-input v-model="form.description" autocomplete="off"></el-input>
@@ -95,7 +104,7 @@ export default {
       dialogFormVisible: false,
       form: {},
       multipleSelection: [],
-
+      options:[]
     }
   },
 
@@ -137,6 +146,11 @@ export default {
     handleEdit(row){
       this.form=row
       this.dialogFormVisible=true
+
+      this.request.get("/menu/icon").then(res=>{
+        console.log(res.data)
+        this.options=res.data
+      })
     },
     del(id){
       this.request.delete("/menu/"+id).then(res => {
@@ -196,5 +210,10 @@ export default {
 .headerBg{
   background: #ccc!important;
 }
-
+.fontSize18{
+  font-size: 18px;
+}
+.fontSize12{
+  font-size:12px;
+}
 </style>
